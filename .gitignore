@@ -1,0 +1,13 @@
+.venv/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+PIP_PACKAGE_PLAN.md
+.venv-check/
+.ruff_cache/
+.DS_Store
+.github/*
+!.github/workflows/

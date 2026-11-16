@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openvisionauto"
+version = "0.1.0"
+description = "OpenVisionAuto: Cross-platform desktop automation toolkit with visual image matching, mouse/keyboard control, and screen recording"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [
+  { name = "OpenAutoUtility" }
+]
+dependencies = [
+  "opencv-python>=4.8.0",
+  "mss>=9.0.0",
+  "numpy>=1.24.0",
+  "pyautogui>=0.9.54",
+  "pillow>=10.0.0"
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: Microsoft :: Windows",
+  "Environment :: X11 Applications",
+  "Topic :: Software Development :: Testing"
+]
+
+[project.urls]
+Homepage = "https://github.com/OpenAutoUtility/openvisionauto"
+Repository = "https://github.com/OpenAutoUtility/openvisionauto"
+Issues = "https://github.com/OpenAutoUtility/openvisionauto/issues"
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8.0"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+openvisionauto = ["py.typed"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

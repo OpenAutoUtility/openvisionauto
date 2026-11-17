@@ -27,19 +27,22 @@ Approve it on the run page; until then the run stays in *Waiting*.
 
 ## Rehearse on TestPyPI first
 
-Bump `pyproject.toml` to a pre-release version such as `0.1.1rc1`, commit and
-push to `main`, then run the `Publish` workflow manually
-(Actions → Publish → Run workflow). A manual run publishes to TestPyPI only;
-PyPI itself is reachable exclusively by pushing a `v*` tag. Verify with:
+Run the `Publish` workflow manually (Actions → Publish → Run workflow on `main`).
+A manual run publishes to TestPyPI only; PyPI itself is reachable exclusively by
+pushing a `v*` tag. Use the same version you intend to release, then verify:
 
 ```bash
-pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ openvisionauto
+pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ openvisionauto
 ```
 
-TestPyPI is a separate index with its own namespace, so a version rehearsed
-there is still free on real PyPI. TestPyPI does reject a second upload of the
-same filename, though, so each rehearsal needs a new version number — a
-pre-release suffix such as `0.1.1rc1` keeps that bookkeeping obvious.
+`--extra-index-url` is required because TestPyPI does not host dependencies such
+as `opencv-python`.
+
+TestPyPI and PyPI are separate indexes, so rehearse `0.1.0` on TestPyPI and still
+publish `0.1.0` to PyPI. A single index does reject a second upload of the same
+filename, so if the rehearsal exposes a problem, fix it and rehearse again under
+a throwaway pre-release number such as `0.1.1rc1`; keep the release version
+untouched until the run is green.
 
 ## One-time setup
 

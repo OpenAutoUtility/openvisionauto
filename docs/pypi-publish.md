@@ -36,8 +36,10 @@ PyPI itself is reachable exclusively by pushing a `v*` tag. Verify with:
 pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ openvisionauto
 ```
 
-TestPyPI consumes the version number, so the rehearsal version can never be
-reused on real PyPI — that is why it must carry a `rc` suffix.
+TestPyPI is a separate index with its own namespace, so a version rehearsed
+there is still free on real PyPI. TestPyPI does reject a second upload of the
+same filename, though, so each rehearsal needs a new version number — a
+pre-release suffix such as `0.1.1rc1` keeps that bookkeeping obvious.
 
 ## One-time setup
 

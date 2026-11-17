@@ -1,4 +1,6 @@
 import logging
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _dist_version
 
 from .config import DEFAULT_CONFIDENCE, DEFAULT_POLL_INTERVAL
 from .envcheck import EnvCheck
@@ -16,6 +18,11 @@ from .input import Input
 from .models import EnvironmentReport, Match, TimingProfile
 from .recorder import Recorder
 from .screen import Screen
+
+try:
+    __version__ = _dist_version("openvisionauto")
+except PackageNotFoundError:  # running from a source tree that was never installed
+    __version__ = "0.0.0"
 
 
 def set_log_level(level: int | str) -> None:
@@ -45,6 +52,7 @@ def set_log_level(level: int | str) -> None:
         current = current.parent
 
 __all__ = [
+    "__version__",
     "DEFAULT_CONFIDENCE",
     "DEFAULT_POLL_INTERVAL",
     "EnvCheck",

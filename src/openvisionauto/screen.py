@@ -9,7 +9,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from .config import HIGHLIGHT_ENABLED
 from .envcheck import check_env
 from .highlighter import Highlighter
 from .input import Input

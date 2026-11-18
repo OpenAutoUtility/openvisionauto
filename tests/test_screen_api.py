@@ -70,27 +70,46 @@ def _new_screen():
     return screen
 
 
-def test_wait_highlight_then_click_highlight(monkeypatch):
+def test_wait_does_not_highlight_implicitly(monkeypatch):
     screen = _new_screen()
     fake_gui = _FakePyAutoGui()
     monkeypatch.setattr("openvisionauto.screen._get_pyautogui", lambda: fake_gui)
 
-    handle = screen.wait("button.png", timeout=3)
-    handle.click()
+    screen.wait("button.png", timeout=3)
 
-    # wait() auto highlight + click() auto highlight
-    assert len(screen.highlighter.calls) == 2
-    assert fake_gui.calls == [("click", 25, 40, "left")]
+    assert screen.highlighter.calls == []
 
 
-def test_click_api_auto_highlight(monkeypatch):
+def test_click_without_highlight_flag_does_not_highlight(monkeypatch):
     screen = _new_screen()
     fake_gui = _FakePyAutoGui()
     monkeypatch.setattr("openvisionauto.screen._get_pyautogui", lambda: fake_gui)
 
     screen.click("button.png", timeout=3)
 
-    # click() suppresses wait highlight and highlights once right before click
+    assert screen.highlighter.calls == []
+    assert fake_gui.calls == [("click", 25, 40, "left")]
+
+
+def test_click_with_highlight_flag_highlights_once(monkeypatch):
+    screen = _new_screen()
+    fake_gui = _FakePyAutoGui()
+    monkeypatch.setattr("openvisionauto.screen._get_pyautogui", lambda: fake_gui)
+
+    screen.click("button.png", timeout=3, highlight=True)
+
+    assert len(screen.highlighter.calls) == 1
+    assert fake_gui.calls == [("click", 25, 40, "left")]
+
+
+def test_handle_click_highlight_flag_highlights_once(monkeypatch):
+    screen = _new_screen()
+    fake_gui = _FakePyAutoGui()
+    monkeypatch.setattr("openvisionauto.screen._get_pyautogui", lambda: fake_gui)
+
+    handle = screen.wait("button.png", timeout=3)
+    handle.click(highlight=True)
+
     assert len(screen.highlighter.calls) == 1
     assert fake_gui.calls == [("click", 25, 40, "left")]
 

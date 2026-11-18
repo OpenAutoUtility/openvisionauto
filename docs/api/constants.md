@@ -18,7 +18,6 @@ Current value: `0.5`
 
 These values are in configuration but not currently exported from package root:
 
-- `HIGHLIGHT_ENABLED` (default `True`)
 - `HIGHLIGHT_COLOR` (default `#ff0000`)
 - `HIGHLIGHT_THICKNESS` (default `3`)
 - `HIGHLIGHT_DURATION_SEC` (default `0.5`)
